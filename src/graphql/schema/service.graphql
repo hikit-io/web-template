@@ -1,0 +1,14 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Mutation {
+    login: String!
+}
+
+type Query {
+    profile: String!
+}

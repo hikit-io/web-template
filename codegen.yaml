@@ -1,0 +1,10 @@
+generates:
+  src/composable/useService.ts:
+    config:
+      vueCompositionApiImportFrom: 'vue'
+    schema: ./src/graphql/schema/service.graphql
+    documents: ./src/graphql/service.graphql
+    plugins:
+      - typescript-vue-apollo
+      - typescript
+      - typescript-operations
