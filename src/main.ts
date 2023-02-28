@@ -12,7 +12,8 @@ const router = createRouter({
 })
 
 const httpLink = createHttpLink({
-    uri: 'https://api.hikit.io/auth/'
+    uri: 'https://api.hikit.io/auth/',
+    credentials: 'include'
 })
 
 // Cache implementation
