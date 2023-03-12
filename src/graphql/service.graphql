@@ -1,3 +1,13 @@
-query profile{
-    profile
+query getProfile{
+    profile{
+        id
+        name
+        email
+    }
+}
+
+query getName{
+    profile{
+        name
+    }
 }

@@ -5,10 +5,38 @@ schema {
     mutation: Mutation
 }
 
+type LoginResp {
+    accessToken: String!
+    expires: Int!
+    idToken: String!
+    refreshToken: String!
+}
+
 type Mutation {
-    login: String!
+    delete: String!
+    login(by: LoginParams!): LoginResp!
+}
+
+type Profile {
+    email: String!
+    id: String!
+    name: String!
 }
 
 type Query {
-    profile: String!
+    profile: Profile!
+}
+
+input EmailLoginParams {
+    email: String!
+    password: String!
+}
+
+input GithubLoginParams {
+    code: String!
+}
+
+input LoginParams {
+    email: EmailLoginParams
+    github: GithubLoginParams
 }
