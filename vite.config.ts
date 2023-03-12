@@ -1,6 +1,5 @@
 import {defineConfig, loadEnv} from 'vite'
 import vue from '@vitejs/plugin-vue'
-import wasm from 'vite-plugin-wasm'
 import components from 'unplugin-vue-components/vite'
 import autoImport from 'unplugin-auto-import/vite'
 import {VarletUIResolver} from 'unplugin-vue-components/resolvers'
@@ -13,7 +12,6 @@ export default defineConfig((env) => {
     return {
         plugins: [
             vue(),
-            wasm(),
             components({
                 resolvers: [VarletUIResolver()]
             }),
@@ -43,8 +41,5 @@ export default defineConfig((env) => {
                 }
             }
         },
-        optimizeDeps: {
-            exclude: ['@hikit/auth-service/auth_service_bg.wasm', '@hikit/auth-service']
-        }
     }
 })
