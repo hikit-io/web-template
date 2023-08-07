@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 
-import {onMounted, provide} from "vue";
-import {AppBar, useAppBarProvide, AppBarContext} from "../composable/useAppBar";
+import {provide} from "vue";
+import {AppBar, AppBarContext, useAppBarProvide} from "../composable/useAppBar";
 import {useAccessToken} from "../composable/useAccessToken";
-import {useRoute, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
 import UserMenu from "./UserMenu.vue";
 
 
@@ -57,7 +57,8 @@ const title = import.meta.env.VITE_TITLE
   width: 100%;
   text-align: center;
 }
-.title{
+
+.title {
   color: white;
   text-decoration: none;
 }
