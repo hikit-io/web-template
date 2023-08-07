@@ -27,7 +27,8 @@ export default defineConfig((env) => {
             })
         ],
         build: {
-            outDir: 'docs',
+            outDir: 'www',
+            cssMinify: 'lightningcss',
             rollupOptions: {
                 output: {
                     sanitizeFileName(fileName) {
@@ -41,5 +42,8 @@ export default defineConfig((env) => {
                 }
             }
         },
+        css: {
+            transformer: 'lightningcss',
+        }
     }
 })

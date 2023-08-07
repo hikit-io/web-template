@@ -24,7 +24,7 @@ router.beforeResolve((to, from) => {
 
   if (token.get()) {
 
-  } else if (to.path === '/login'||to.path === '/') {
+  } else if (to.path === '/login' || to.path === '/') {
 
   } else {
     push('/')
@@ -37,22 +37,27 @@ const title = import.meta.env.VITE_TITLE
 
 <template>
   <var-app-bar>
-    {{title}}
+    <router-link to="/" >
+      {{ title }}
+    </router-link>
     <template #right>
       <user-menu></user-menu>
     </template>
   </var-app-bar>
   <router-view></router-view>
   <div style="flex: 1;"></div>
-  <div class="footer" >
+  <div class="footer">
     <var-divider></var-divider>
     <h4>@HiKit</h4>
   </div>
 </template>
 
 <style scoped>
-.footer{
+.footer {
   width: 100%;
   text-align: center;
+}
+.title{
+
 }
 </style>
