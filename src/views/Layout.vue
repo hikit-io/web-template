@@ -37,7 +37,7 @@ const title = import.meta.env.VITE_TITLE
 
 <template>
   <var-app-bar>
-    <router-link to="/" >
+    <router-link to="/" class="title">
       {{ title }}
     </router-link>
     <template #right>
@@ -58,6 +58,7 @@ const title = import.meta.env.VITE_TITLE
   text-align: center;
 }
 .title{
-
+  color: white;
+  text-decoration: none;
 }
 </style>
