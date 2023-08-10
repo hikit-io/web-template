@@ -1,7 +1,9 @@
 import {useCookies} from "@vueuse/integrations/useCookies";
+import {computed, Ref} from "vue";
 
 export interface AccessTokenContext {
-    set: (accessToken: string) => void
+    name: Ref<string>,
+    // set: (accessToken: string) => void
     get: () => string
     del: () => void
 }
@@ -15,6 +17,7 @@ const useAccessToken = (): AccessTokenContext => {
     }
     const get = () => {
         const cookie = cookies.get<string>('HIKIT')
+        console.log(cookie)
         return cookie
     }
     const del = () => {
@@ -26,8 +29,9 @@ const useAccessToken = (): AccessTokenContext => {
             path: '/',
         })
     }
+    const name = computed(() => cookies.get<string>("HIKIT_NAME"))
     return {
-        set,
+        name,
         get,
         del
     }
