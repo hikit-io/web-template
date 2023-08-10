@@ -1,28 +1,20 @@
 <script lang="ts" setup>
 import {useAppBar} from "@/composable/useAppBar";
-import {ref, watch} from "vue";
+import {useAccessToken} from "@/composable/useAccessToken";
 
-const {showRight, toggleRight, onProfile, logout} = useAppBar()
+const {logout, showRight} = useAppBar()
 
-
-const account = ref('account')
-
-watch(showRight, (value) => {
-  if (value) {
-
-  }
-})
+const {name} = useAccessToken()
 
 </script>
 
 <template>
   <var-menu v-if="showRight" placement="bottom" trigger="hover" :same-width="true">
     <var-button text>
-      {{ account }}
+      {{ name }}
       <var-icon name="chevron-down"></var-icon>
     </var-button>
     <template #menu>
-      <var-cell @click="onProfile" :ripple="true">Profile</var-cell>
       <var-cell @click="logout" :ripple="true">Exit</var-cell>
     </template>
   </var-menu>
