@@ -1,4 +1,4 @@
-import {inject, provide, Ref, ref} from "vue";
+import {inject, Ref} from "vue";
 import {useToggle} from "@vueuse/core";
 import {useRouter} from "vue-router";
 import {useAccessToken} from "./useAccessToken";
@@ -11,6 +11,9 @@ interface AppBarContext {
 
     toggleRight: (value?: (boolean | undefined)) => boolean
 
+    on: () => void
+    off: () => void
+
     logout: () => void
 
     onProfile: () => void
@@ -21,6 +24,14 @@ const useAppBarProvide = (): AppBarContext => {
     const token = useAccessToken()
 
     const [showRight, toggleRight] = useToggle(false)
+
+    const on = () => {
+        toggleRight(true)
+    }
+    const off = () => {
+        toggleRight(false)
+    }
+
     const logout = () => {
         token.del()
         toggleRight(false)
@@ -35,6 +46,8 @@ const useAppBarProvide = (): AppBarContext => {
     return {
         showRight,
         toggleRight,
+        on,
+        off,
         logout,
         onProfile
     }

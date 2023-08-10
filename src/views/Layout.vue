@@ -1,23 +1,29 @@
 <script lang="ts" setup>
 
 import {provide} from "vue";
+
 import {AppBar, AppBarContext, useAppBarProvide} from "@/composable/useAppBar";
+import {AppLoading, AppLoadingContext, useAppLoadingProvide} from "@/composable/useAppLoading";
+
 import {useAccessToken} from "@/composable/useAccessToken";
-import UserMenu from "@/views/UserMenu.vue";
 import {useGetNameQuery} from "@/composable/useAuthService";
-import {useToggle} from "@vueuse/core";
+
+import UserMenu from "@/views/UserMenu.vue";
 
 
 // Api Service
 
 // App bar state manage
-const appBarContext = useAppBarProvide()
-provide(AppBar, appBarContext as AppBarContext)
+const appBarCtx = useAppBarProvide()
+provide(AppBar, appBarCtx as AppBarContext)
+
+// App loading
+const appLoadingCtx = useAppLoadingProvide()
+provide(AppLoading, appLoadingCtx as AppLoadingContext)
+appLoadingCtx.on()
 
 // Check Login
 const token = useAccessToken()
-
-const [loading, loadingToggle] = useToggle(true)
 
 const {onResult, onError} = useGetNameQuery({
   clientId: 'auth',
@@ -26,8 +32,8 @@ const {onResult, onError} = useGetNameQuery({
 
 onResult(param => {
   if (param.data.profile) {
-    appBarContext.toggleRight(true)
-    loadingToggle()
+    appBarCtx.on()
+    appLoadingCtx.off()
   }
 })
 
@@ -49,13 +55,13 @@ const title = import.meta.env.VITE_TITLE
       <user-menu></user-menu>
     </template>
   </var-app-bar>
-  <router-view v-if="!loading"></router-view>
+  <router-view v-if="!appLoadingCtx.loading"></router-view>
   <div style="flex: 1;"></div>
   <div class="footer">
     <var-divider></var-divider>
     <h4>@HiKit</h4>
   </div>
-  <var-skeleton fullscreen :loading="loading"></var-skeleton>
+  <var-skeleton fullscreen :loading="appLoadingCtx.loading.value"></var-skeleton>
 </template>
 
 <style scoped>

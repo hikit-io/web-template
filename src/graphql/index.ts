@@ -26,7 +26,13 @@ const errorLink = onError(({graphQLErrors, networkError, response}) => {
                 }
             }
         );
-    if (networkError) console.log(`[Network error]: ${networkError}`);
+    if (networkError) {
+        console.log(`[Network error]: ${networkError}`);
+        Snackbar({
+            type: 'error',
+            content: `[Network error]${networkError.message}, Please try again later.`,
+        })
+    }
 });
 
 

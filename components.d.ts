@@ -18,5 +18,6 @@ declare module 'vue' {
     VarIcon: typeof import('@varlet/ui')['_IconComponent']
     VarLink: typeof import('@varlet/ui')['_LinkComponent']
     VarMenu: typeof import('@varlet/ui')['_MenuComponent']
+    VarSkeleton: typeof import('@varlet/ui')['_SkeletonComponent']
   }
 }
