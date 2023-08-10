@@ -3,33 +3,38 @@
 import {provide} from "vue";
 import {AppBar, AppBarContext, useAppBarProvide} from "@/composable/useAppBar";
 import {useAccessToken} from "@/composable/useAccessToken";
-import {useRouter} from "vue-router";
-import UserMenu from "./UserMenu.vue";
+import UserMenu from "@/views/UserMenu.vue";
+import {useGetNameQuery} from "@/composable/useAuthService";
+import {useToggle} from "@vueuse/core";
 
 
 // Api Service
-
 
 // App bar state manage
 const appBarContext = useAppBarProvide()
 provide(AppBar, appBarContext as AppBarContext)
 
 // Check Login
-const router = useRouter()
 const token = useAccessToken()
-const {push} = useRouter()
 
-router.beforeResolve((to, from) => {
-  console.log('checkLogin')
+const [loading, loadingToggle] = useToggle(true)
 
-  if (token.get()) {
+const {onResult, onError} = useGetNameQuery({
+  clientId: 'auth',
+  fetchPolicy: 'network-only'
+})
 
-  } else if (to.path === '/login' || to.path === '/') {
-
-  } else {
-    push('/')
+onResult(param => {
+  if (param.data.profile) {
+    appBarContext.toggleRight(true)
+    loadingToggle()
   }
 })
+
+onError(param => {
+  token.del()
+})
+
 const title = import.meta.env.VITE_TITLE
 
 
@@ -44,12 +49,13 @@ const title = import.meta.env.VITE_TITLE
       <user-menu></user-menu>
     </template>
   </var-app-bar>
-  <router-view></router-view>
+  <router-view v-if="!loading"></router-view>
   <div style="flex: 1;"></div>
   <div class="footer">
     <var-divider></var-divider>
     <h4>@HiKit</h4>
   </div>
+  <var-skeleton fullscreen :loading="loading"></var-skeleton>
 </template>
 
 <style scoped>

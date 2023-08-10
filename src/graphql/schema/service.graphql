@@ -1,42 +1,14 @@
-# This file was generated based on ".graphqlconfig". Do not edit manually.
+# This file was generated. Do not edit manually.
 
 schema {
     query: Query
-    mutation: Mutation
-}
-
-type LoginResp {
-    accessToken: String!
-    expires: Int!
-    idToken: String!
-    refreshToken: String!
-}
-
-type Mutation {
-    delete: String!
-    login(by: LoginParams!): LoginResp!
-}
-
-type Profile {
-    email: String!
-    id: String!
-    name: String!
+    subscription: Subscription
 }
 
 type Query {
-    profile: Profile!
+    ping: String!
 }
 
-input EmailLoginParams {
-    email: String!
-    password: String!
-}
-
-input GithubLoginParams {
-    code: String!
-}
-
-input LoginParams {
-    email: EmailLoginParams
-    github: GithubLoginParams
+type Subscription {
+    chat(message: String!): String!
 }
