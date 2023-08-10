@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useAppBar} from "../composable/useAppBar";
+import {useAppBar} from "@/composable/useAppBar";
 import {ref, watch} from "vue";
 
 const {showRight, toggleRight, onProfile, logout} = useAppBar()

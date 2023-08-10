@@ -4,16 +4,34 @@ import components from 'unplugin-vue-components/vite'
 import autoImport from 'unplugin-auto-import/vite'
 import {VarletUIResolver} from 'unplugin-vue-components/resolvers'
 import {createHtmlPlugin} from 'vite-plugin-html'
+import {resolve} from 'path'
+
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
 const INVALID_CHAR_REGEX = /[\x00-\x1F\x7F<>*#"{}|^[\]`;?:&=+$,]/g;
 const DRIVE_LETTER_REGEX = /^[a-z]:/i;
 
 export default defineConfig((env) => {
     return {
+        resolve: {
+            alias: {
+                "@": resolve(__dirname, "./src")
+            }
+        },
         plugins: [
             vue(),
+            Icons({
+                autoInstall: true,
+                compiler: "vue3",
+            }),
             components({
-                resolvers: [VarletUIResolver()]
+                resolvers: [
+                    VarletUIResolver(),
+                    IconsResolver({
+                        prefix: 'icon',
+                    }),
+                ]
             }),
             autoImport({
                 resolvers: [VarletUIResolver({autoImport: true})]

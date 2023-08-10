@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 
 import {provide} from "vue";
-import {AppBar, AppBarContext, useAppBarProvide} from "../composable/useAppBar";
-import {useAccessToken} from "../composable/useAccessToken";
+import {AppBar, AppBarContext, useAppBarProvide} from "@/composable/useAppBar";
+import {useAccessToken} from "@/composable/useAccessToken";
 import {useRouter} from "vue-router";
 import UserMenu from "./UserMenu.vue";
 
