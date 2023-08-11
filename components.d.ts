@@ -7,8 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Icon: typeof import('./src/components/Icon.vue')['default']
-    Loading: typeof import('./src/components/Loading.vue')['default']
+    Icon: typeof import('@/components/IconifyIcon.vue')['default']
+    Loading: typeof import('@/components/AppLoading.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VarAppBar: typeof import('@varlet/ui')['_AppBarComponent']

@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import Layout from "./views/Layout.vue";
-
+import AppLayout from '@/views/AppLayout.vue'
 </script>
 
 <template>
   <suspense>
-    <layout></layout>
+    <app-layout />
   </suspense>
 </template>
-
-<style scoped>
-
-</style>
