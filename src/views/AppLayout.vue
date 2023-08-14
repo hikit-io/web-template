@@ -51,13 +51,13 @@ const title = import.meta.env.VITE_TITLE
       <user-menu />
     </template>
   </var-app-bar>
-  <router-view v-if='!appLoadingCtx.loading' />
-  <div style='flex: 1' />
+  <router-view v-if="!appLoadingCtx.loading" />
+  <div style="flex: 1" />
   <div class="footer">
     <var-divider />
     <h4>@HiKit</h4>
   </div>
-  <var-skeleton fullscreen :loading='appLoadingCtx.loading.value' />
+  <var-skeleton fullscreen :loading="appLoadingCtx.loading.value" />
 </template>
 
 <style scoped>

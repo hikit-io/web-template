@@ -21,10 +21,15 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
           type: 'error',
           content: extension.error.source,
           onClose: () => {
-            window.location.href = 'https://auth.hikit.io/?from=https://gpt.hikit.io'
+            window.location.href = `https://auth.hikit.io/?from=${import.meta.env.VITE_URL}`
           },
         })
+        return
       }
+      Snackbar({
+        type: 'error',
+        content: extension.error.source,
+      })
     })
   }
   if (networkError) {

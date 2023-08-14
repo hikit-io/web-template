@@ -5,6 +5,7 @@ import autoImport from 'unplugin-auto-import/vite'
 import { VarletUIResolver } from 'unplugin-vue-components/resolvers'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { resolve } from 'path'
+import mkcert from 'vite-plugin-mkcert'
 
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
@@ -14,6 +15,10 @@ const DRIVE_LETTER_REGEX = /^[a-z]:/i
 
 export default defineConfig((env) => {
   return {
+    server: {
+      strictPort: true,
+      port: 443,
+    },
     resolve: {
       alias: {
         '@': resolve(__dirname, './src'),
@@ -21,6 +26,7 @@ export default defineConfig((env) => {
     },
     plugins: [
       vue(),
+      mkcert(),
       Icons({
         autoInstall: true,
         compiler: 'vue3',
@@ -45,7 +51,7 @@ export default defineConfig((env) => {
       }),
     ],
     build: {
-      outDir: 'www',
+      outDir: 'docs',
       cssMinify: 'lightningcss',
       rollupOptions: {
         output: {

@@ -3,8 +3,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:vue/vue3-strongly-recommended",
-    "plugin:prettier/recommended",
-    "prettier"
+    "prettier",
+    "plugin:prettier/recommended"
   ],
   "rules": {},
   "parserOptions": {

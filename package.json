@@ -8,8 +8,8 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "g": "graphql-codegen",
-    "eslint": "eslint . --ext .js,.jsx,.ts,.tsx,.vue",
-    "eslint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx,.vue",
+    "eslint": "eslint src --ext .js,.jsx,.ts,.tsx,.vue src",
+    "eslint:fix": "eslint src --fix --ext .js,.jsx,.ts,.tsx,.vue src",
     "stylelint": "stylelint \"src/**/*.{css,scss,sass,vue,html}\"",
     "stylelint:fix": "stylelint \"src/**/*.{css,scss,sass,vue,html}\" --fix",
     "lint": "npm run eslint & npm run stylelint",
@@ -55,6 +55,7 @@
     "unplugin-vue-components": "^0.25.1",
     "vite": "^4.4.9",
     "vite-plugin-html": "^3.2.0",
+    "vite-plugin-mkcert": "^1.16.0",
     "vue-tsc": "^1.8.8"
   }
 }

@@ -4,7 +4,7 @@ const props = defineProps<{ loading?: boolean }>()
 
 <template>
   <div class="loading">
-    <var-loading :loading='props.loading ?? false' type='wave' description='Loading' size='large' />
+    <var-loading :loading="props.loading ?? false" type="wave" description="Loading" size="large" />
   </div>
 </template>
 

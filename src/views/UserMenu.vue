@@ -11,10 +11,10 @@ const { name } = useAccessToken()
   <var-menu v-if="showRight" placement="bottom" trigger="hover" :same-width="true">
     <var-button text>
       {{ name }}
-      <var-icon name='chevron-down' />
+      <var-icon name="chevron-down" />
     </var-button>
     <template #menu>
-      <var-cell :ripple='true' @click='logout'> Exit</var-cell>
+      <var-cell :ripple="true" @click="logout"> Exit</var-cell>
     </template>
   </var-menu>
 </template>
