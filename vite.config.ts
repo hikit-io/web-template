@@ -6,6 +6,7 @@ import { VarletUIResolver } from 'unplugin-vue-components/resolvers'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { resolve } from 'path'
 import mkcert from 'vite-plugin-mkcert'
+import { VitePWA } from 'vite-plugin-pwa'
 
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
@@ -26,6 +27,29 @@ export default defineConfig((env) => {
     },
     plugins: [
       vue(),
+      VitePWA({
+        registerType: 'autoUpdate',
+        devOptions: {
+          enabled: true,
+        },
+        manifest: {
+          name: 'HiGPT',
+          short_name: 'HiGPT',
+          icons: [
+            {
+              src: 'index128.png',
+              sizes: '128x128',
+              type: 'image/png',
+            },
+            {
+              src: 'index512.png',
+              sizes: '256x256',
+              type: 'image/png',
+            },
+          ],
+        },
+        includeManifestIcons: true,
+      }),
       mkcert(),
       Icons({
         autoInstall: true,
