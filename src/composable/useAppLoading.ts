@@ -1,16 +1,14 @@
-import { inject, Ref } from 'vue'
-import { useToggle } from '@vueuse/core'
-
-const AppLoading = Symbol()
+import { computed, ComputedRef } from 'vue'
+import { createInjectionState, useToggle } from '@vueuse/core'
 
 interface AppLoadingContext {
-  loading: Ref<boolean>
+  loading: ComputedRef<boolean>
   toggleLoading: (value?: boolean | undefined) => void
   on: () => void
   off: () => void
 }
 
-const useAppLoadingProvide = (): AppLoadingContext => {
+const [useAppLoadingProvide, useAppLoadingInject] = createInjectionState((): AppLoadingContext => {
   const [loading, toggleLoading] = useToggle(false)
   const on = () => {
     loading.value = true
@@ -19,17 +17,16 @@ const useAppLoadingProvide = (): AppLoadingContext => {
     loading.value = false
   }
   return {
-    loading,
+    loading: computed(() => loading.value),
     toggleLoading,
     on,
     off,
   }
+})
+
+const useAppLoading = () => {
+  return useAppLoadingInject()!
 }
 
-const useAppLoading = (): AppLoadingContext => {
-  const ctx = inject<AppLoadingContext>(AppLoading)
-  return <AppLoadingContext>ctx
-}
-
-export { useAppLoadingProvide, useAppLoading, AppLoading }
+export { useAppLoadingProvide, useAppLoading }
 export type { AppLoadingContext }

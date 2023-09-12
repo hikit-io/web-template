@@ -58,10 +58,7 @@ export default defineConfig((env) => {
           sanitizeFileName(fileName) {
             const match = DRIVE_LETTER_REGEX.exec(fileName)
             const driveLetter = match ? match[0] : ''
-            return (
-              driveLetter +
-              fileName.slice(driveLetter.length).replace(INVALID_CHAR_REGEX, '')
-            )
+            return driveLetter + fileName.slice(driveLetter.length).replace(INVALID_CHAR_REGEX, '')
           },
         },
       },

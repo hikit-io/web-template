@@ -1,29 +1,35 @@
 <script lang="ts" setup>
-import { provide } from 'vue'
-
-import { AppBar, AppBarContext, useAppBarProvide } from '@/composable/useAppBar'
-import { AppLoading, AppLoadingContext, useAppLoadingProvide } from '@/composable/useAppLoading'
+import { useAppBarProvide } from '@/composable/useAppBar'
+import { useAppLoadingProvide } from '@/composable/useAppLoading'
 
 import { useAccessToken } from '@/composable/useAccessToken'
-import { useGetNameQuery } from '@/composable/useAuthService'
+import { useGetNameLazyQuery } from '@/composable/useAuthService'
+import AppBarLeft from '@/views/layout/AppBarLeft.vue'
+import AppBarRight from '@/views/layout/AppBarRight.vue'
+import useEnv from '@/composable/useEnv'
+import { useRouter } from 'vue-router'
 
-import UserMenu from '@/views/UserMenu.vue'
+// Base
+const { ignoreCheckPaths } = useEnv()
+const router = useRouter()
 
 // Api Service
 
 // App bar state manage
 const appBarCtx = useAppBarProvide()
-provide(AppBar, appBarCtx as AppBarContext)
 
 // App loading
 const appLoadingCtx = useAppLoadingProvide()
-provide(AppLoading, appLoadingCtx as AppLoadingContext)
 appLoadingCtx.on()
 
 // Check Login
 const token = useAccessToken()
 
-const { onResult, onError } = useGetNameQuery({
+const {
+  onResult,
+  onError,
+  load: checkLogin,
+} = useGetNameLazyQuery({
   clientId: 'auth',
   fetchPolicy: 'network-only',
 })
@@ -39,19 +45,23 @@ onError(() => {
   token.del()
 })
 
-const title = import.meta.env.VITE_TITLE
+router.beforeResolve((to) => {
+  if (ignoreCheckPaths.findIndex((value: string) => value === to.path) != -1) {
+    appLoadingCtx.off()
+  } else {
+    checkLogin()
+  }
+})
 </script>
 
 <template>
   <var-app-bar>
-    <router-link to="/" class="title">
-      {{ title }}
-    </router-link>
+    <app-bar-left></app-bar-left>
     <template #right>
-      <user-menu />
+      <app-bar-right></app-bar-right>
     </template>
   </var-app-bar>
-  <router-view v-if="!appLoadingCtx.loading" />
+  <router-view v-if="!appLoadingCtx.loading.value" />
   <div style="flex: 1" />
   <div class="footer">
     <var-divider />
@@ -64,10 +74,5 @@ const title = import.meta.env.VITE_TITLE
 .footer {
   width: 100%;
   text-align: center;
-}
-
-.title {
-  color: white;
-  text-decoration: none;
 }
 </style>
