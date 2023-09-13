@@ -1,14 +1,20 @@
 <script lang="ts" setup>
 import { useAppBar } from '@/composable/useAppBar'
 import { useAccessToken } from '@/composable/useAccessToken'
-import { useGetAppBarRightQuery } from '@/composable/useAuthService'
-import { computed } from 'vue'
+import { useGetAppBarRightLazyQuery } from '@/composable/useAuthService'
+import { computed, watch } from 'vue'
 import { Dialog } from '@varlet/ui'
 import '@varlet/ui/es/dialog/style'
 
 const { showRight, onProfile, logout, showRightPop, toggleRightPop, colorMode, toggleColor } = useAppBar()
 
-const { result } = useGetAppBarRightQuery({ clientId: 'auth' })
+const { result, load } = useGetAppBarRightLazyQuery({ clientId: 'auth' })
+
+watch(showRight, (val) => {
+  if (val) {
+    load()
+  }
+})
 
 const { name: cookieName } = useAccessToken()
 

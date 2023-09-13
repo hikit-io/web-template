@@ -11,7 +11,7 @@ const { push } = useRouter()
 </script>
 
 <template>
-  <var-space class="app-bar-left" :align="'center'" size="small">
+  <var-space class="app-bar-left" :align="'center'">
     <var-button class="menu-btn" v-if="showLeft" @click="toggleLeftPop(true)" size="small" outline text>
       <var-icon name="menu"></var-icon>
     </var-button>
